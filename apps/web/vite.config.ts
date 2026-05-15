@@ -14,11 +14,8 @@ import { restart } from './plugins/restart';
 import { restartEnvFileChange } from './plugins/restartEnvFileChange';
 
 export default defineConfig({
-  // Keep them available via import.meta.env.NEXT_PUBLIC_*
   envPrefix: 'NEXT_PUBLIC_',
   optimizeDeps: {
-    // Explicitly include fast-glob, since it gets dynamically imported and we
-    // don't want that to cause a re-bundle.
     include: ['fast-glob', 'lucide-react'],
     exclude: [
       '@hono/auth-js/react',
@@ -39,19 +36,19 @@ export default defineConfig({
       serverEntryPoint: './__create/index.ts',
       runtime: 'node',
     }),
-babel({
-  include: ['src/**/*.{js,jsx,ts,tsx}'],
-  exclude: /node_modules/,
-  babelConfig: {
-    babelrc: false,
-    configFile: false,
-    presets: [
-      ['@babel/preset-react', { runtime: 'automatic' }],
-      ['@babel/preset-typescript'],
-    ],
-    plugins: ['styled-jsx/babel'],
-  },
-}),
+    babel({
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
+      exclude: /node_modules/,
+      babelConfig: {
+        babelrc: false,
+        configFile: false,
+        presets: [
+          ['@babel/preset-react', { runtime: 'automatic' }],
+          ['@babel/preset-typescript'],
+        ],
+        plugins: ['styled-jsx/babel'],
+      },
+    }),
     restart({
       restart: [
         'src/**/page.jsx',
