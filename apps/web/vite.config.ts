@@ -39,15 +39,19 @@ export default defineConfig({
       serverEntryPoint: './__create/index.ts',
       runtime: 'node',
     }),
-    babel({
-      include: ['src/**/*.{js,jsx,ts,tsx}'], // or RegExp: /src\/.*\.[tj]sx?$/
-      exclude: /node_modules/, // skip everything else
-      babelConfig: {
-        babelrc: false, // don’t merge other Babel files
-        configFile: false,
-        plugins: ['styled-jsx/babel'],
-      },
-    }),
+babel({
+  include: ['src/**/*.{js,jsx,ts,tsx}'],
+  exclude: /node_modules/,
+  babelConfig: {
+    babelrc: false,
+    configFile: false,
+    presets: [
+      ['@babel/preset-react', { runtime: 'automatic' }],
+      ['@babel/preset-typescript'],
+    ],
+    plugins: ['styled-jsx/babel'],
+  },
+}),
     restart({
       restart: [
         'src/**/page.jsx',
