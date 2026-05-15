@@ -29,6 +29,9 @@ export default defineConfig({
     ],
   },
   logLevel: 'info',
+  build: {
+    target: 'esnext',
+  },
   plugins: [
     nextPublicProcessEnv(),
     restartEnvFileChange(),
